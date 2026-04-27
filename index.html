@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kunal — Astrological Calendar 2026–2028</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: rgba(255,255,255,0.06);
+    --text: #e8e4d9;
+    --muted: #6b6759;
+    --green: #4a7c59;
+    --green-glow: rgba(74,124,89,0.3);
+    --green-light: #7db88a;
+    --yellow: #c4963a;
+    --yellow-glow: rgba(196,150,58,0.3);
+    --yellow-light: #e8c068;
+    --red: #8b3a3a;
+    --red-glow: rgba(139,58,58,0.3);
+    --red-light: #c96b6b;
+    --gold: #c4963a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Starfield */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 10%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 60%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 25%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 75%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 90%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 65%, rgba(255,255,255,0.15) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .header-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  .header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #e8e4d9 0%, #c4963a 50%, #e8e4d9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .header-sub {
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+
+  .chart-line {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .chart-pill {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    border: 1px solid rgba(196,150,58,0.3);
+    padding: 4px 12px;
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+    animation: fadeDown 0.8s 0.1s ease both;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .legend-dot.green { background: var(--green-light); box-shadow: 0 0 8px var(--green-glow); }
+  .legend-dot.yellow { background: var(--yellow-light); box-shadow: 0 0 8px var(--yellow-glow); }
+  .legend-dot.red { background: var(--red-light); box-shadow: 0 0 8px var(--red-glow); }
+
+  /* Year block */
+  .year-block {
+    margin-bottom: 56px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .year-block:nth-child(2) { animation-delay: 0.1s; }
+  .year-block:nth-child(3) { animation-delay: 0.2s; }
+  .year-block:nth-child(4) { animation-delay: 0.3s; }
+
+  .year-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(196,150,58,0.2);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .year-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(196,150,58,0.2), transparent);
+  }
+
+  .year-theme {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+
+  /* Months grid */
+  .months-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* Month card */
+  .month-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+
+  .month-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  .month-header {
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .month-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+
+  .month-stress {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    font-family: 'Cinzel', serif;
+  }
+
+  .month-stress.green { color: var(--green-light); }
+  .month-stress.yellow { color: var(--yellow-light); }
+  .month-stress.red { color: var(--red-light); }
+
+  /* Weeks */
+  .weeks-container {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .week-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: opacity 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .week-row.green {
+    background: rgba(74,124,89,0.12);
+    border-left: 2px solid var(--green);
+  }
+  .week-row.yellow {
+    background: rgba(196,150,58,0.12);
+    border-left: 2px solid var(--yellow);
+  }
+  .week-row.red {
+    background: rgba(139,58,58,0.12);
+    border-left: 2px solid var(--red);
+  }
+
+  .week-row.current {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  .week-row.current::after {
+    content: 'NOW';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    opacity: 0.8;
+  }
+
+  .week-num {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    min-width: 24px;
+  }
+
+  .week-dates {
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 90px;
+    letter-spacing: 0.02em;
+  }
+
+  .week-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .week-dot.green { background: var(--green-light); box-shadow: 0 0 6px var(--green-glow); }
+  .week-dot.yellow { background: var(--yellow-light); box-shadow: 0 0 6px var(--yellow-glow); }
+  .week-dot.red { background: var(--red-light); box-shadow: 0 0 6px var(--red-glow); }
+
+  .week-theme {
+    font-size: 11px;
+    color: var(--text);
+    opacity: 0.7;
+    font-style: italic;
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  /* Month insight */
+  .month-insight {
+    padding: 10px 16px 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* Current marker */
+  .current-badge {
+    display: inline-block;
+    background: rgba(196,150,58,0.15);
+    border: 1px solid rgba(196,150,58,0.3);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* Divider */
+  .section-divider {
+    text-align: center;
+    margin: 48px 0;
+    position: relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-divider span {
+    position: relative;
+    background: var(--bg);
+    padding: 0 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-quote {
+    font-size: 18px;
+    font-style: italic;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 16px;
+    line-height: 1.6;
+  }
+
+  .footer-attr {
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: rgba(196,150,58,0.4);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .months-grid { grid-template-columns: 1fr; }
+    .week-dates { min-width: 70px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-eyebrow">Astrological Life Map</div>
+    <h1>Kunal's Cosmic Calendar</h1>
+    <div class="header-sub">January 2026 — December 2028</div>
+    <div class="chart-line">
+      <span class="chart-pill">☉ 29° Capricorn</span>
+      <span class="chart-pill">↑ Aquarius Rising</span>
+      <span class="chart-pill">☽ Scorpio</span>
+      <span class="chart-pill">♄ Chart Ruler</span>
+      <span class="chart-pill">♇ On Ascendant</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot green"></div> Smooth & Expansive</div>
+    <div class="legend-item"><div class="legend-dot yellow"></div> Monotonous & Functional</div>
+    <div class="legend-item"><div class="legend-dot red"></div> Stressful & Heavy</div>
+  </div>
+
+  <!-- 2026 -->
+  <div class="year-block">
+    <div class="year-label">
+      2026
+      <span class="year-theme">The Forge — Demolition & Foundation</span>
+    </div>
+    <div class="months-grid" id="months-2026"></div>
+  </div>
+
+  <div class="section-divider"><span>♄ Saturn enters Taurus · Jupiter enters Leo</span></div>
+
+  <!-- 2027 -->
+  <div class="year-block">
+    <div class="year-label">
+      2027
+      <span class="year-theme">The Emergence — Construction & Output</span>
+    </div>
+    <div class="months-grid" id="months-2027"></div>
+  </div>
+
+  <div class="section-divider"><span>♃ Jupiter enters Libra · ♄ Taurus Settled</span></div>
+
+  <!-- 2028 -->
+  <div class="year-block">
+    <div class="year-label">
+      2028
+      <span class="year-theme">The Harvest — Systems Bearing Fruit</span>
+    </div>
+    <div class="months-grid" id="months-2028"></div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-quote">"The strength of the man in chaos is exactly equal to the strength of the systems he built in clarity."</div>
+    <div class="footer-attr">Kunal · Aquarius Rising · Born 20 Jan 2000</div>
+  </div>
+
+</div>
+
+<script>
+const TODAY = new Date(2026, 3, 27); // April 27, 2026
+
+const calendarData = {
+  2026: [
+    {
+      month: "January", weeks: [
+        { dates: "Jan 1–4",   color: "red",    theme: "Identity pressure begins" },
+        { dates: "Jan 5–11",  color: "red",    theme: "Pluto on ascendant, heavy fog" },
+        { dates: "Jan 12–18", color: "red",    theme: "Saturn friction peaks" },
+        { dates: "Jan 19–25", color: "yellow", theme: "Brief plateau, no relief yet" },
+        { dates: "Jan 26–31", color: "red",    theme: "Weight without clarity" }
+      ],
+      insight: "Pluto arrived on your Ascendant. The earthquake had no epicentre you could name."
+    },
+    {
+      month: "February", weeks: [
+        { dates: "Feb 1–8",   color: "red",    theme: "Saturn enters Aries — your ruler in fire" },
+        { dates: "Feb 9–15",  color: "red",    theme: "Everything takes longer than it should" },
+        { dates: "Feb 16–22", color: "red",    theme: "Self-criticism at maximum volume" },
+        { dates: "Feb 23–28", color: "yellow", theme: "Slight steadying, still heavy" }
+      ],
+      insight: "Your chart ruler entered a sign it hates. Systems failed silently."
+    },
+    {
+      month: "March", weeks: [
+        { dates: "Mar 1–8",   color: "red",    theme: "Deepest descent begins" },
+        { dates: "Mar 9–15",  color: "red",    theme: "Jupiter amplifies emotional weight" },
+        { dates: "Mar 16–22", color: "red",    theme: "The floor feels very far down" },
+        { dates: "Mar 23–31", color: "red",    theme: "Identity under full demolition" }
+      ],
+      insight: "Three major planets converging. The storm had architecture — you were being remade."
+    },
+    {
+      month: "April", weeks: [
+        { dates: "Apr 1–5",   color: "red",    theme: "Still in the deepest point" },
+        { dates: "Apr 6–12",  color: "red",    theme: "Chaos at home and work peaks" },
+        { dates: "Apr 13–19", color: "red",    theme: "Depression crystallises" },
+        { dates: "Apr 20–26", color: "yellow", theme: "First flicker — insight through pain" },
+        { dates: "Apr 27–30", color: "yellow", theme: "Systems clarity arrives — OpsTeam born", current: true }
+      ],
+      insight: "The lowest point. Also where the sharpest insights arrived. Compression before eruption."
+    },
+    {
+      month: "May", weeks: [
+        { dates: "May 1–3",   color: "yellow", theme: "Structure holds — walks & reading" },
+        { dates: "May 4–10",  color: "green",  theme: "Recovery stabilises" },
+        { dates: "May 11–17", color: "yellow", theme: "Functional but emotionally tender" },
+        { dates: "May 18–24", color: "red",    theme: "Saturn retrograde — final test" },
+        { dates: "May 25–31", color: "green",  theme: "Genuine lift — first real exhale" }
+      ],
+      insight: "The floor held. Small systems — water, walk, sleep — carried you through."
+    },
+    {
+      month: "June", weeks: [
+        { dates: "Jun 1–8",   color: "green",  theme: "Jupiter enters Leo — isolation lifts" },
+        { dates: "Jun 9–15",  color: "green",  theme: "7th house activated — people arrive" },
+        { dates: "Jun 16–22", color: "green",  theme: "Forward motion returns" },
+        { dates: "Jun 23–30", color: "yellow", theme: "Don't sprint — convalescent energy" }
+      ],
+      insight: "Jupiter enters Leo on June 9. The single biggest positive transit of the year."
+    },
+    {
+      month: "July", weeks: [
+        { dates: "Jul 1–7",   color: "green",  theme: "Productive momentum" },
+        { dates: "Jul 8–14",  color: "yellow", theme: "Saturn slows — resistance builds" },
+        { dates: "Jul 15–21", color: "red",    theme: "Mercury-Mars spike — watch communication" },
+        { dates: "Jul 22–31", color: "yellow", theme: "Deep work, heads down" }
+      ],
+      insight: "Build month. Not for presenting — for making. Avoid difficult conversations mid-July."
+    },
+    {
+      month: "August", weeks: [
+        { dates: "Aug 1–9",   color: "red",    theme: "Saturn retrograde lands fully" },
+        { dates: "Aug 10–16", color: "red",    theme: "Internal pressure without cause" },
+        { dates: "Aug 17–23", color: "red",    theme: "Heaviest mental load of 2026" },
+        { dates: "Aug 24–31", color: "yellow", theme: "Approaching the end of the test" }
+      ],
+      insight: "The year's hardest month. Sleep and physical routine are the only non-negotiables."
+    },
+    {
+      month: "September", weeks: [
+        { dates: "Sep 1–6",   color: "yellow", theme: "Saturn retreats to Pisces — relief" },
+        { dates: "Sep 7–13",  color: "green",  theme: "Unexpected breathing room" },
+        { dates: "Sep 14–20", color: "green",  theme: "Repair and consolidate" },
+        { dates: "Sep 21–30", color: "yellow", theme: "Maintenance — save energy for Oct" }
+      ],
+      insight: "Saturn retreats September 1. The pressure dissolves faster than expected."
+    },
+    {
+      month: "October", weeks: [
+        { dates: "Oct 1–11",  color: "green",  theme: "Jupiter + Saturn aligned — real support" },
+        { dates: "Oct 12–18", color: "green",  theme: "Decisions feel lighter" },
+        { dates: "Oct 19–25", color: "green",  theme: "Risk tolerance returns" },
+        { dates: "Oct 26–31", color: "yellow", theme: "Watch overconfidence shadow" }
+      ],
+      insight: "First genuinely aligned planetary window since before the descent. Rebuild with confidence."
+    },
+    {
+      month: "November", weeks: [
+        { dates: "Nov 1–8",   color: "green",  theme: "Clearest thinking of the year" },
+        { dates: "Nov 9–15",  color: "green",  theme: "Mercury favours — best communication window" },
+        { dates: "Nov 16–22", color: "green",  theme: "Investor / pitch / hiring window" },
+        { dates: "Nov 23–30", color: "yellow", theme: "Physical discipline — don't let it slip" }
+      ],
+      insight: "November is when the rebuilt version of you speaks. Use it for your highest leverage work."
+    },
+    {
+      month: "December", weeks: [
+        { dates: "Dec 1–7",   color: "yellow", theme: "Integration — not sprint" },
+        { dates: "Dec 8–14",  color: "green",  theme: "Year's narrative crystallises" },
+        { dates: "Dec 15–21", color: "yellow", theme: "Saturn re-pressure — familiar now" },
+        { dates: "Dec 22–31", color: "green",  theme: "Close the year — write what 2026 taught you" }
+      ],
+      insight: "Completion energy. What looked like suffering in April makes architectural sense in December."
+    }
+  ],
+  2027: [
+    {
+      month: "January", weeks: [
+        { dates: "Jan 1–10",  color: "yellow", theme: "New year pressure — familiar flavour" },
+        { dates: "Jan 11–17", color: "yellow", theme: "Saturn in Aries — now fluent in it" },
+        { dates: "Jan 18–24", color: "green",  theme: "Forward-facing clarity" },
+        { dates: "Jan 25–31", color: "yellow", theme: "Mars friction in operations" }
+      ],
+      insight: "Same Saturn pressure as 2026 — but you know its language now. Different experience entirely."
+    },
+    {
+      month: "February", weeks: [
+        { dates: "Feb 1–7",   color: "yellow", theme: "Fix what August 2026 exposed" },
+        { dates: "Feb 8–14",  color: "green",  theme: "Systems repair in flow" },
+        { dates: "Feb 15–21", color: "green",  theme: "Execution feels purposeful" },
+        { dates: "Feb 22–28", color: "yellow", theme: "Consolidate before March push" }
+      ],
+      insight: "Operate on the diagnoses August gave you. This is the surgery month."
+    },
+    {
+      month: "March", weeks: [
+        { dates: "Mar 1–7",   color: "green",  theme: "Jupiter approaches Virgo — momentum" },
+        { dates: "Mar 8–14",  color: "green",  theme: "8th house activating — resources flow" },
+        { dates: "Mar 15–21", color: "green",  theme: "Peak early-year window — KURO pitches" },
+        { dates: "Mar 22–31", color: "green",  theme: "Connections above your current level appear" }
+      ],
+      insight: "Best month of the first half. Decisions made here have unusually good long-term yield."
+    },
+    {
+      month: "April", weeks: [
+        { dates: "Apr 1–11",  color: "yellow", theme: "Mars challenges Aries — operational friction" },
+        { dates: "Apr 12–18", color: "yellow", theme: "Something in execution layer breaks" },
+        { dates: "Apr 19–25", color: "yellow", theme: "Audit and fix — maintenance month" },
+        { dates: "Apr 26–30", color: "green",  theme: "Resolving cleanly" }
+      ],
+      insight: "April is disruption disguised as maintenance. Fix what breaks — don't rage against it."
+    },
+    {
+      month: "May", weeks: [
+        { dates: "May 1–9",   color: "yellow", theme: "Soul-level connections deepen" },
+        { dates: "May 10–16", color: "green",  theme: "8th house Jupiter — transformation" },
+        { dates: "May 17–23", color: "green",  theme: "This person changes something in me" },
+        { dates: "May 24–31", color: "yellow", theme: "Between two eras — hold decisions" }
+      ],
+      insight: "Romantic Window 2 — deep soul connections available. Also: Saturn's final Aries weeks."
+    },
+    {
+      month: "June", weeks: [
+        { dates: "Jun 1–7",   color: "yellow", theme: "Transition — Saturn closing Aries chapter" },
+        { dates: "Jun 8–14",  color: "green",  theme: "Jupiter enters Virgo — peak output begins" },
+        { dates: "Jun 15–21", color: "green",  theme: "All systems aligned for first time" },
+        { dates: "Jun 22–30", color: "green",  theme: "Execute the move you've been holding" }
+      ],
+      insight: "The most important two months of the entire 2026–2027 arc begin here. Don't waste it."
+    },
+    {
+      month: "July", weeks: [
+        { dates: "Jul 1–12",  color: "green",  theme: "Peak output — flow state available" },
+        { dates: "Jul 13–19", color: "green",  theme: "Products feel real and deployable" },
+        { dates: "Jul 20–26", color: "green",  theme: "Your voice lands with unusual authority" },
+        { dates: "Jul 27–31", color: "yellow", theme: "Check boldness vs recklessness" }
+      ],
+      insight: "Pull the trigger on the move you know is solid. This is the window you've been building toward."
+    },
+    {
+      month: "August", weeks: [
+        { dates: "Aug 1–8",   color: "yellow", theme: "Post-peak consolidation" },
+        { dates: "Aug 9–15",  color: "yellow", theme: "Jupiter analytical — prove your claims" },
+        { dates: "Aug 16–22", color: "yellow", theme: "Mercury retrograde — review not launch" },
+        { dates: "Aug 23–31", color: "yellow", theme: "Document what's been built" }
+      ],
+      insight: "Recovery week after the hardest training block. Rest is part of the work."
+    },
+    {
+      month: "September", weeks: [
+        { dates: "Sep 1–12",  color: "green",  theme: "Harvest begins — results arrive" },
+        { dates: "Sep 13–19", color: "green",  theme: "The rebuilt version is operational" },
+        { dates: "Sep 20–26", color: "green",  theme: "Revenue / traction validates direction" },
+        { dates: "Sep 27–30", color: "green",  theme: "Personal clarity on the bigger mission" }
+      ],
+      insight: "What the last two years built shows up as results. The foundation reveals its load capacity."
+    },
+    {
+      month: "October", weeks: [
+        { dates: "Oct 1–10",  color: "green",  theme: "Jupiter in Libra — visibility expands" },
+        { dates: "Oct 11–17", color: "green",  theme: "Work reaching the right people" },
+        { dates: "Oct 18–24", color: "yellow", theme: "Saturn-Pluto minor — watch perfectionism" },
+        { dates: "Oct 25–31", color: "green",  theme: "Ship. Done beats perfect." }
+      ],
+      insight: "Recognition month. Your output reaches levels it couldn't have before this arc."
+    },
+    {
+      month: "November", weeks: [
+        { dates: "Nov 1–8",   color: "green",  theme: "Forward motion — decisive" },
+        { dates: "Nov 9–15",  color: "yellow", theme: "Integration pressure — too many good things" },
+        { dates: "Nov 16–22", color: "yellow", theme: "Delegate or hoard — the test arrives" },
+        { dates: "Nov 23–30", color: "green",  theme: "Systems carry themselves — let them" }
+      ],
+      insight: "The thing you've been building — replacing yourself in ops — gets tested here. Trust it."
+    },
+    {
+      month: "December", weeks: [
+        { dates: "Dec 1–7",   color: "yellow", theme: "Saturn re-enters Aries — familiar" },
+        { dates: "Dec 8–14",  color: "yellow", theme: "Year closes with weight — but earned" },
+        { dates: "Dec 15–21", color: "green",  theme: "Two-year arc crystallises" },
+        { dates: "Dec 22–31", color: "green",  theme: "What would Jan 2026 Kunal not believe?" }
+      ],
+      insight: "Write down what Jan 2026 you would not believe about where you stand. That gap is everything."
+    }
+  ],
+  2028: [
+    {
+      month: "January", weeks: [
+        { dates: "Jan 1–7",   color: "yellow", theme: "Strong start — hidden impatience" },
+        { dates: "Jan 8–14",  color: "yellow", theme: "Vision clear, execution slower than vision" },
+        { dates: "Jan 15–21", color: "green",  theme: "Fix one thing completely — then next" },
+        { dates: "Jan 22–31", color: "yellow", theme: "Set the year's single milestone" }
+      ],
+      insight: "Don't restructure everything simultaneously. Pick one. Fix it completely. Then the next."
+    },
+    {
+      month: "February", weeks: [
+        { dates: "Feb 1–9",   color: "green",  theme: "Negotiation & documentation window" },
+        { dates: "Feb 10–16", color: "green",  theme: "KURO investor conversations — here" },
+        { dates: "Feb 17–23", color: "green",  theme: "Communication precise and landed" },
+        { dates: "Feb 24–29", color: "green",  theme: "Agreements made now hold long-term" }
+      ],
+      insight: "Mercury and Venus both favourable. The version of you taken seriously without announcement."
+    },
+    {
+      month: "March", weeks: [
+        { dates: "Mar 1–8",   color: "green",  theme: "Best month of first half — 8th house peak" },
+        { dates: "Mar 9–15",  color: "green",  theme: "Other people's resources flow toward you" },
+        { dates: "Mar 16–22", color: "green",  theme: "Eruption month — deploy stored energy" },
+        { dates: "Mar 23–31", color: "green",  theme: "Opportunity that seems slightly premature — take it" }
+      ],
+      insight: "Jupiter at maximum potency. Decisions made in March have unusually good long-term yield."
+    },
+    {
+      month: "April", weeks: [
+        { dates: "Apr 1–10",  color: "yellow", theme: "Mars tests operations — something breaks" },
+        { dates: "Apr 11–17", color: "yellow", theme: "Team gap vs your pace — design around it" },
+        { dates: "Apr 18–24", color: "yellow", theme: "Audit and fix — April is maintenance" },
+        { dates: "Apr 25–30", color: "green",  theme: "Resolving — back on track" }
+      ],
+      insight: "Operational friction. Don't rage against it. It's signal — something needed fixing."
+    },
+    {
+      month: "May", weeks: [
+        { dates: "May 1–10",  color: "yellow", theme: "Between two eras — Saturn's final Aries weeks" },
+        { dates: "May 11–17", color: "yellow", theme: "Transition energy — hold big decisions" },
+        { dates: "May 18–24", color: "yellow", theme: "Reflective — how far from Jan 2026?" },
+        { dates: "May 25–31", color: "yellow", theme: "Anticipatory quiet before the shift" }
+      ],
+      insight: "Honor the in-between. The next chapter isn't visible yet — that's okay."
+    },
+    {
+      month: "June", weeks: [
+        { dates: "Jun 1–7",   color: "green",  theme: "Saturn enters Taurus — the deep exhale" },
+        { dates: "Jun 8–14",  color: "green",  theme: "Scaffolding down — structure revealed" },
+        { dates: "Jun 15–21", color: "green",  theme: "Chronic low-grade anxiety fades" },
+        { dates: "Jun 22–30", color: "green",  theme: "Jupiter enters Libra — worlds expand" }
+      ],
+      insight: "Saturn enters Taurus. Your chart ruler in the sign it builds beautifully in. The era of building under fire ends."
+    },
+    {
+      month: "July", weeks: [
+        { dates: "Jul 1–9",   color: "green",  theme: "9th house open — think at global scale" },
+        { dates: "Jul 10–16", color: "green",  theme: "Mentor appears — above your current level" },
+        { dates: "Jul 17–23", color: "green",  theme: "Why behind the work energises as much as how" },
+        { dates: "Jul 24–31", color: "yellow", theme: "Integrate new worldview without losing ops" }
+      ],
+      insight: "Romantic Window 3 — someone from a different world who expands your thinking entirely."
+    },
+    {
+      month: "August", weeks: [
+        { dates: "Aug 1–10",  color: "yellow", theme: "Mid-year review — data not just vision" },
+        { dates: "Aug 11–17", color: "yellow", theme: "Vision vs execution tension — productive" },
+        { dates: "Aug 18–24", color: "yellow", theme: "Stretched in a good direction" },
+        { dates: "Aug 25–31", color: "green",  theme: "Recalibration complete" }
+      ],
+      insight: "2028's August is a Yellow, not Red. Progress from the previous two years is real."
+    },
+    {
+      month: "September", weeks: [
+        { dates: "Sep 1–7",   color: "green",  theme: "Highest output month of the year" },
+        { dates: "Sep 8–14",  color: "green",  theme: "Sharp, grounded, expansive, unafraid" },
+        { dates: "Sep 15–21", color: "green",  theme: "Fear from 2026 — genuinely dissolved" },
+        { dates: "Sep 22–30", color: "green",  theme: "Ship something significant — the window is real" }
+      ],
+      insight: "The version of you that the last three years were building toward. He operates in September 2028."
+    },
+    {
+      month: "October", weeks: [
+        { dates: "Oct 1–11",  color: "green",  theme: "Results from September return" },
+        { dates: "Oct 12–18", color: "green",  theme: "Work reaching the right level of people" },
+        { dates: "Oct 19–25", color: "yellow", theme: "Libra shadow — don't over-negotiate" },
+        { dates: "Oct 26–31", color: "green",  theme: "Make the decision someone won't like" }
+      ],
+      insight: "Quietly confident. The kind that doesn't need to announce itself."
+    },
+    {
+      month: "November", weeks: [
+        { dates: "Nov 1–9",   color: "yellow", theme: "Overloaded — meaningfully so" },
+        { dates: "Nov 10–16", color: "yellow", theme: "Delegate test arrives — let the systems work" },
+        { dates: "Nov 17–23", color: "green",  theme: "Ruthless prioritisation pays off" },
+        { dates: "Nov 24–30", color: "yellow", theme: "Saturn re-enters Aries — prepared this time" }
+      ],
+      insight: "The thing you've been systematically building toward — tested here. Trust the systems."
+    },
+    {
+      month: "December", weeks: [
+        { dates: "Dec 1–7",   color: "green",  theme: "Completion — not just calendar ending" },
+        { dates: "Dec 8–14",  color: "green",  theme: "Genuine satisfaction — rare and earned" },
+        { dates: "Dec 15–21", color: "green",  theme: "Three-year arc makes full sense" },
+        { dates: "Dec 22–31", color: "green",  theme: "Write: what would Jan 2026 Kunal not believe?" }
+      ],
+      insight: "For the first time in three years — December feels like completion. The foundation holds everything built on it."
+    }
+  ]
+};
+
+function isCurrentWeek(dateStr, year) {
+  const months = { Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11 };
+  const parts = dateStr.split('–');
+  const startParts = parts[0].trim().split(' ');
+  const endParts = parts[1] ? parts[1].trim().split(' ') : null;
+  
+  const startMonth = months[startParts[0]];
+  const startDay = parseInt(startParts[1]);
+  
+  let endMonth = startMonth;
+  let endDay = startDay + 6;
+  
+  if (endParts) {
+    if (endParts.length === 2) {
+      endMonth = months[endParts[0]];
+      endDay = parseInt(endParts[1]);
+    } else {
+      endDay = parseInt(endParts[0]);
+    }
+  }
+  
+  const startDate = new Date(year, startMonth, startDay);
+  const endDate = new Date(year, endMonth, endDay);
+  
+  return TODAY >= startDate && TODAY <= endDate;
+}
+
+function renderMonths() {
+  Object.entries(calendarData).forEach(([year, months]) => {
+    const container = document.getElementById(`months-${year}`);
+    if (!container) return;
+    
+    months.forEach(monthData => {
+      const card = document.createElement('div');
+      card.className = 'month-card';
+      
+      // Determine dominant color
+      const colors = monthData.weeks.map(w => w.color);
+      const dominant = ['red','yellow','green'].find(c => colors.filter(x=>x===c).length >= colors.length/2) || colors[0];
+      
+      const stressLabel = { green: 'SMOOTH', yellow: 'MONOTONOUS', red: 'STRESSFUL' };
+      
+      card.innerHTML = `
+        <div class="month-header">
+          <div class="month-name">${monthData.month} ${year}</div>
+          <div class="month-stress ${dominant}">${stressLabel[dominant]}</div>
+        </div>
+        <div class="weeks-container">
+          ${monthData.weeks.map((week, i) => {
+            const isCurrent = isCurrentWeek(week.dates, parseInt(year));
+            return `
+              <div class="week-row ${week.color}${isCurrent ? ' current' : ''}">
+                <span class="week-num">W${i+1}</span>
+                <span class="week-dates">${week.dates}</span>
+                <span class="week-dot ${week.color}"></span>
+                <span class="week-theme">${week.theme}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+        <div class="month-insight">${monthData.insight}</div>
+      `;
+      
+      container.appendChild(card);
+    });
+  });
+}
+
+renderMonths();
+</script>
+</body>
+</html>
