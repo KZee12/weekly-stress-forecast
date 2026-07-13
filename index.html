@@ -4,152 +4,113 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kunal — Astrological Calendar 2026–2028</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --border: rgba(255,255,255,0.06);
-    --text: #e8e4d9;
-    --muted: #6b6759;
+    --bg: #0a0908;
+    --surface: #131110;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e3d8;
+    --muted: #8a8378;
     --gold: #c4963a;
 
-    /* 5-level stress scale */
-    --l1-bg: rgba(74,124,89,0.15);
-    --l1-border: #4a7c59;
-    --l1-dot: #7db88a;
-    --l1-glow: rgba(74,124,89,0.4);
-
-    --l2-bg: rgba(100,140,80,0.12);
-    --l2-border: #6a9c50;
-    --l2-dot: #9dc87a;
-    --l2-glow: rgba(100,140,80,0.3);
-
-    --l3-bg: rgba(196,150,58,0.12);
-    --l3-border: #c4963a;
-    --l3-dot: #e8c068;
-    --l3-glow: rgba(196,150,58,0.3);
-
-    --l4-bg: rgba(180,90,50,0.14);
-    --l4-border: #b45a32;
-    --l4-dot: #e07848;
-    --l4-glow: rgba(180,90,50,0.35);
-
-    --l5-bg: rgba(139,38,38,0.18);
-    --l5-border: #8b2626;
-    --l5-dot: #c94444;
-    --l5-glow: rgba(139,38,38,0.45);
+    --l1-dot: #7fd88f; --l1-glow: rgba(127,216,143,0.5); --l1-bg: rgba(127,216,143,0.07); --l1-border: rgba(127,216,143,0.4);
+    --l2-dot: #6fb8d9; --l2-glow: rgba(111,184,217,0.5); --l2-bg: rgba(111,184,217,0.07); --l2-border: rgba(111,184,217,0.4);
+    --l3-dot: #d9b86f; --l3-glow: rgba(217,184,111,0.5); --l3-bg: rgba(217,184,111,0.07); --l3-border: rgba(217,184,111,0.4);
+    --l4-dot: #d98f4f; --l4-glow: rgba(217,143,79,0.5); --l4-bg: rgba(217,143,79,0.07); --l4-border: rgba(217,143,79,0.4);
+    --l5-dot: #d9524f; --l5-glow: rgba(217,82,79,0.5); --l5-bg: rgba(217,82,79,0.08); --l5-border: rgba(217,82,79,0.45);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { box-sizing: border-box; }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Crimson Pro', serif;
-    min-height: 100vh;
-    overflow-x: hidden;
+    margin: 0;
+    padding: 40px 20px 80px;
+    -webkit-font-smoothing: antialiased;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 30% 40%, rgba(255,255,255,0.2) 0%, transparent 100%),
-      radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.25) 0%, transparent 100%),
-      radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 100%),
-      radial-gradient(1px 1px at 85% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 92% 75%, rgba(255,255,255,0.2) 0%, transparent 100%),
-      radial-gradient(1px 1px at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 100%),
-      radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.2) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 48px 24px;
-    position: relative;
-    z-index: 1;
-  }
+  .container { max-width: 960px; margin: 0 auto; }
 
   .header {
     text-align: center;
-    margin-bottom: 48px;
-    animation: fadeDown 0.8s ease both;
+    margin-bottom: 36px;
+    animation: fadeDown 0.7s ease both;
   }
 
   .header-eyebrow {
     font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 0.4em;
+    font-size: 11px;
+    letter-spacing: 0.35em;
     color: var(--gold);
-    margin-bottom: 16px;
-    opacity: 0.8;
+    text-transform: uppercase;
+    margin-bottom: 18px;
   }
 
-  .header h1 {
+  h1 {
     font-family: 'Cinzel', serif;
-    font-size: clamp(26px, 5vw, 48px);
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    line-height: 1.1;
-    background: linear-gradient(135deg, #e8e4d9 0%, #c4963a 50%, #e8e4d9 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: clamp(28px, 5vw, 42px);
+    letter-spacing: 0.03em;
+    margin: 0 0 10px;
+    color: var(--text);
   }
 
   .header-sub {
-    font-size: 15px;
+    font-size: 14px;
     color: var(--muted);
-    font-style: italic;
+    letter-spacing: 0.08em;
+    margin-bottom: 22px;
   }
 
   .chart-line {
     display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 18px;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
   }
 
   .chart-pill {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    border: 1px solid rgba(196,150,58,0.25);
-    padding: 3px 10px;
-    border-radius: 2px;
-    opacity: 0.65;
+    font-size: 12px;
+    color: var(--text);
+    opacity: 0.85;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    letter-spacing: 0.02em;
+    background: var(--surface);
   }
 
-  /* Legend — 5 levels */
+  .correction-note {
+    font-size: 11px;
+    color: var(--muted);
+    font-style: italic;
+    letter-spacing: 0.02em;
+    opacity: 0.75;
+  }
+
   .legend {
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 0;
-    margin-bottom: 48px;
-    animation: fadeDown 0.8s 0.1s ease both;
     flex-wrap: wrap;
-    row-gap: 12px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin: 28px auto 18px;
+    max-width: fit-content;
   }
 
   .legend-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    padding: 6px 16px;
+    gap: 7px;
+    padding: 8px 16px;
     border-right: 1px solid var(--border);
-    color: var(--muted);
+    font-size: 12px;
   }
 
   .legend-item:last-child { border-right: none; }
@@ -169,7 +130,6 @@
 
   .legend-label { color: var(--text); opacity: 0.7; }
 
-  /* Scale note */
   .scale-note {
     text-align: center;
     font-size: 12px;
@@ -190,7 +150,6 @@
     font-style: normal;
   }
 
-  /* Year block */
   .year-block {
     margin-bottom: 52px;
     animation: fadeUp 0.6s ease both;
@@ -353,7 +312,6 @@
     line-height: 1.5;
   }
 
-  /* Arc bar */
   .arc-bar {
     margin-bottom: 52px;
     animation: fadeUp 0.5s ease both;
@@ -417,7 +375,6 @@
     opacity: 0.5;
   }
 
-  /* Divider */
   .section-divider {
     text-align: center;
     margin: 44px 0;
@@ -492,11 +449,12 @@
     <div class="header-sub">January 2026 — December 2028</div>
     <div class="chart-line">
       <span class="chart-pill">☉ 29° Capricorn</span>
-      <span class="chart-pill">↑ Aquarius Rising</span>
-      <span class="chart-pill">☽ Scorpio</span>
+      <span class="chart-pill">↑ Capricorn Rising</span>
+      <span class="chart-pill">☽ Gemini</span>
       <span class="chart-pill">♄ Chart Ruler</span>
-      <span class="chart-pill">♇ On Ascendant</span>
+      <span class="chart-pill">♇ 11th House</span>
     </div>
+    <div class="correction-note">Chart recalculated Jul 2026 via Lahiri sidereal ephemeris — ascendant and Moon corrected from an earlier draft</div>
   </div>
 
   <div class="legend">
@@ -511,14 +469,12 @@
     All stress levels are relative. <strong>L5 = April 2026 (the real floor)</strong>. Everything else is measured against that anchor.
   </div>
 
-  <!-- Arc bar -->
   <div class="arc-bar">
     <div class="arc-bar-label">THREE-YEAR STRESS ARC — 2026 TO 2028</div>
     <div class="arc-segments" id="arc-segments"></div>
     <div class="arc-months" id="arc-months"></div>
   </div>
 
-  <!-- 2026 -->
   <div class="year-block">
     <div class="year-label">2026 <span class="year-theme">The Forge — Demolition & Foundation</span></div>
     <div class="months-grid" id="months-2026"></div>
@@ -526,7 +482,6 @@
 
   <div class="section-divider"><span>♃ Jupiter enters Leo · Jun 9, 2026</span></div>
 
-  <!-- 2027 -->
   <div class="year-block">
     <div class="year-label">2027 <span class="year-theme">The Emergence — Construction & Output</span></div>
     <div class="months-grid" id="months-2027"></div>
@@ -534,7 +489,6 @@
 
   <div class="section-divider"><span>♄ Saturn enters Taurus · ♃ Jupiter enters Libra · Jun 2028</span></div>
 
-  <!-- 2028 -->
   <div class="year-block">
     <div class="year-label">2028 <span class="year-theme">The Harvest — Systems Bearing Fruit</span></div>
     <div class="months-grid" id="months-2028"></div>
@@ -542,29 +496,20 @@
 
   <div class="footer">
     <div class="footer-quote">"The calendar is not your enemy. It's your roadmap out."</div>
-    <div class="footer-attr">Kunal · Aquarius Rising · Born 20 Jan 2000 · 07:58 · Jalgaon</div>
+    <div class="footer-attr">Kunal · Capricorn Rising · Born 20 Jan 2000 · 07:58 · Jalgaon</div>
   </div>
 
 </div>
 
 <script>
-const TODAY = new Date(2026, 3, 27);
-
-/*
-  STRESS LEVELS — all relative to April 2026 as L5 (the absolute floor)
-  L1 — Expansive, flowing, high energy
-  L2 — Smooth, functional with ease
-  L3 — Functional, mild friction, neutral
-  L4 — Heavy, noticeable pressure, manageable
-  L5 — Crisis level (only April 2026 weeks qualify)
-*/
+const TODAY = new Date(2026, 6, 14);
 
 const calendarData = {
   2026: [
     {
       month: "January", level: "l4",
       weeks: [
-        { dates: "Jan 1–4",   level: "l4", theme: "Pluto on Ascendant — identity pressure" },
+        { dates: "Jan 1–4",   level: "l4", theme: "Identity pressure building" },
         { dates: "Jan 5–11",  level: "l4", theme: "Creeping heaviness, no clear cause" },
         { dates: "Jan 12–18", level: "l4", theme: "Ambition present but unreachable" },
         { dates: "Jan 19–25", level: "l3", theme: "Functioning but drained" },
@@ -599,7 +544,7 @@ const calendarData = {
         { dates: "Apr 6–12",  level: "l5", theme: "Depression at peak — home and work both breaking" },
         { dates: "Apr 13–19", level: "l5", theme: "Maximum weight — the real L5" },
         { dates: "Apr 20–26", level: "l4", theme: "First flicker — insight through pain" },
-        { dates: "Apr 27–30", level: "l3", theme: "Systems clarity — OpsTeam crystallises", current: true }
+        { dates: "Apr 27–30", level: "l3", theme: "Systems clarity — OpsTeam crystallises" }
       ],
       insight: "The only true L5 month. Every other difficult period is measured against this."
     },
@@ -618,7 +563,7 @@ const calendarData = {
       month: "June", level: "l2",
       weeks: [
         { dates: "Jun 1–8",   level: "l2", theme: "Jupiter enters Leo — isolation lifts" },
-        { dates: "Jun 9–15",  level: "l1", theme: "7th house open — people and energy arrive" },
+        { dates: "Jun 9–15",  level: "l1", theme: "Momentum opens — people and energy arrive" },
         { dates: "Jun 16–22", level: "l2", theme: "Forward motion — don't sprint yet" },
         { dates: "Jun 23–30", level: "l2", theme: "Convalescent energy — steady" }
       ],
@@ -629,30 +574,30 @@ const calendarData = {
       weeks: [
         { dates: "Jul 1–7",   level: "l2", theme: "Productive momentum" },
         { dates: "Jul 8–14",  level: "l3", theme: "Saturn slows — mild resistance" },
-        { dates: "Jul 15–21", level: "l3", theme: "Mercury-Mars — watch communication" },
-        { dates: "Jul 22–31", level: "l3", theme: "Deep work mode" }
+        { dates: "Jul 15–21", level: "l3", theme: "Rahu on the ascendant — restless ambition" },
+        { dates: "Jul 22–31", level: "l3", theme: "Deep work mode; Saturn stations retrograde Jul 26" }
       ],
       insight: "Build month. Heads-down execution. Not launching — making."
     },
     {
       month: "August", level: "l4",
       weeks: [
-        { dates: "Aug 1–9",   level: "l4", theme: "Saturn retrograde lands — internal audit" },
-        { dates: "Aug 10–16", level: "l4", theme: "Old patterns surface — not crisis, pressure" },
+        { dates: "Aug 1–9",   level: "l4", theme: "Saturn retrograde — internal audit" },
+        { dates: "Aug 10–16", level: "l4", theme: "Solar eclipse Aug 12 — near exalted Jupiter" },
         { dates: "Aug 17–23", level: "l4", theme: "Heavy — but you're stronger than April" },
-        { dates: "Aug 24–31", level: "l3", theme: "Approaching the end of this test" }
+        { dates: "Aug 24–31", level: "l3", theme: "Lunar eclipse Aug 28 — ascendant axis activated" }
       ],
-      insight: "L4 — real pressure, but you enter this as a different person than April. Not the same weight."
+      insight: "Two eclipses land on your ascendant-7th axis this month. Identity and partnership compress into a short, sharp window — likely where the Services Head decision actually lands."
     },
     {
       month: "September", level: "l2",
       weeks: [
-        { dates: "Sep 1–6",   level: "l2", theme: "Saturn retreats to Pisces — relief" },
+        { dates: "Sep 1–6",   level: "l2", theme: "Post-eclipse settling begins" },
         { dates: "Sep 7–13",  level: "l2", theme: "Unexpected breathing room" },
         { dates: "Sep 14–20", level: "l2", theme: "Repair and consolidate" },
         { dates: "Sep 21–30", level: "l3", theme: "Maintenance — save energy for Oct" }
       ],
-      insight: "Saturn retreats Sep 1. The pressure dissolves faster than expected."
+      insight: "Digestion month. Whatever cracked open in August gets absorbed here. Week 3 (Sep 14–20) is the calmest stretch — the better window for real rest."
     },
     {
       month: "October", level: "l1",
@@ -660,9 +605,9 @@ const calendarData = {
         { dates: "Oct 1–11",  level: "l1", theme: "Jupiter + Saturn aligned — genuine support" },
         { dates: "Oct 12–18", level: "l1", theme: "Decisions feel lighter — risk tolerance back" },
         { dates: "Oct 19–25", level: "l2", theme: "Rebuilding with confidence" },
-        { dates: "Oct 26–31", level: "l2", theme: "Watch overconfidence — it's Libra's shadow" }
+        { dates: "Oct 26–31", level: "l2", theme: "Jupiter enters Leo, conjunct Ketu — best delegation window of the year" }
       ],
-      insight: "First genuinely aligned window since before the descent. Use it to rebuild."
+      insight: "Jupiter shifts into your 7th house Oct 30, conjunct Ketu — a strong signature for handing authority to someone else and having it actually stick."
     },
     {
       month: "November", level: "l1",
@@ -710,7 +655,7 @@ const calendarData = {
       month: "March", level: "l1",
       weeks: [
         { dates: "Mar 1–7",   level: "l2", theme: "Jupiter approaching Virgo — momentum" },
-        { dates: "Mar 8–14",  level: "l1", theme: "8th house — resources flow toward you" },
+        { dates: "Mar 8–14",  level: "l1", theme: "Resources flow toward you" },
         { dates: "Mar 15–21", level: "l1", theme: "Peak window — KURO pitches, key decisions" },
         { dates: "Mar 22–31", level: "l1", theme: "Connections above current level appear" }
       ],
@@ -730,8 +675,8 @@ const calendarData = {
       month: "May", level: "l2",
       weeks: [
         { dates: "May 1–9",   level: "l3", theme: "Saturn's final Aries weeks" },
-        { dates: "May 10–16", level: "l2", theme: "8th house — soul-level connections" },
-        { dates: "May 17–23", level: "l1", theme: "Romantic Window 2 — deep connection possible" },
+        { dates: "May 10–16", level: "l2", theme: "Deep connections — professional and personal" },
+        { dates: "May 17–23", level: "l1", theme: "Window for meaningful new connection" },
         { dates: "May 24–31", level: "l3", theme: "Between two eras — hold big decisions" }
       ],
       insight: "The in-between. Saturn closing one chapter. Don't force the next one open."
@@ -764,7 +709,7 @@ const calendarData = {
         { dates: "Aug 16–22", level: "l3", theme: "Mercury retrograde — review not launch" },
         { dates: "Aug 23–31", level: "l3", theme: "Document what's been built" }
       ],
-      insight: "Recovery week after the hardest training block. Rest is part of the work."
+      insight: "Recovery stretch after the hardest work block. Rest is part of the work."
     },
     {
       month: "September", level: "l1",
@@ -781,7 +726,7 @@ const calendarData = {
       weeks: [
         { dates: "Oct 1–10",  level: "l1", theme: "Jupiter in Libra — visibility expands" },
         { dates: "Oct 11–17", level: "l1", theme: "Work reaching the right level of people" },
-        { dates: "Oct 18–24", level: "l2", theme: "Watch perfectionism — Saturn-Pluto minor" },
+        { dates: "Oct 18–24", level: "l2", theme: "Watch perfectionism" },
         { dates: "Oct 25–31", level: "l1", theme: "Ship. Done beats perfect." }
       ],
       insight: "Recognition month. Results meet the right audience."
@@ -831,7 +776,7 @@ const calendarData = {
     {
       month: "March", level: "l1",
       weeks: [
-        { dates: "Mar 1–8",   level: "l1", theme: "8th house Jupiter — resources flow" },
+        { dates: "Mar 1–8",   level: "l1", theme: "Resources flow" },
         { dates: "Mar 9–15",  level: "l1", theme: "Best month of first half — eruption" },
         { dates: "Mar 16–22", level: "l1", theme: "Decisions made here yield long-term" },
         { dates: "Mar 23–31", level: "l1", theme: "Opportunity that seems premature — take it" }
@@ -866,14 +811,14 @@ const calendarData = {
         { dates: "Jun 15–21", level: "l1", theme: "Jupiter enters Libra — worlds expand" },
         { dates: "Jun 22–30", level: "l1", theme: "Chronic background anxiety — gone" }
       ],
-      insight: "Saturn enters Taurus. Your chart ruler in the sign it builds beautifully in. The scaffolding comes down."
+      insight: "Saturn enters Taurus, the sign it builds beautifully in. The scaffolding comes down."
     },
     {
       month: "July", level: "l1",
       weeks: [
-        { dates: "Jul 1–9",   level: "l1", theme: "9th house — think at global scale" },
+        { dates: "Jul 1–9",   level: "l1", theme: "Think at global scale" },
         { dates: "Jul 10–16", level: "l1", theme: "Mentor appears above current level" },
-        { dates: "Jul 17–23", level: "l1", theme: "Romantic Window 3 — worldview-expanding partner" },
+        { dates: "Jul 17–23", level: "l1", theme: "A worldview-expanding connection" },
         { dates: "Jul 24–31", level: "l2", theme: "Integrate new worldview — don't lose ops" }
       ],
       insight: "Someone enters from a different world entirely. Jupiter in Libra delivers on schedule."
