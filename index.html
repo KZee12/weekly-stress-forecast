@@ -255,16 +255,34 @@
   .week-row.l5 { background: var(--l5-bg); border-left: 2px solid var(--l5-border); }
 
   .week-row.current::after {
-    content: 'NOW';
-    position: relative;
+    content: "";
+    position: absolute;
     right: 8px;
     top: 50%;
     transform: translateY(-50%);
-    font-family: 'Cinzel', serif;
-    font-size: 8px;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    opacity: 0.9;
+    
+    width: 8px;
+    height: 8px;
+    background: #39ff14;   /* Neon green */
+    border-radius: 50%;
+    
+    box-shadow: 0 0 8px #39ff14;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 0 0 4px #39ff14;
+    }
+    50% {
+        transform: translateY(-50%) scale(1.3);
+        box-shadow: 0 0 12px #39ff14, 0 0 20px #39ff14;
+    }
+    100% {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 0 0 4px #39ff14;
+    }
   }
 
   .week-num {
